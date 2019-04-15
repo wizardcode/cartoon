@@ -1,22 +1,21 @@
 import sqlite3
-import click
-from flask import current_app, g
-from flask.cli import with_appcontext
+
+conn = sqlite3.connect("cartoon.db", check_same_thread=False)
+
+c = conn.cursor()
 
 
-def get_db():
-    if "db" not in g:
-        g.db = sqlite3.connect(
-            current_app.config["DATABASE"],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
-    return g.db
+def create_table():
+    c.execute(
+        "create table cartoon (sid INTEGER PRIMARY KEY,description message_text ,subtitiles message_text ) ")
+    conn.commit()
+    conn.close()
 
 
-def close_db(e=None):
-    db = g.pop("db", None)
-    if db is not None:
-        db.close()
+def db_close():
+    conn.close()
 
 
+def get_cartoon(sid):
+    data = c.execute("select * from cartoon where sid='{sid}'".format(sid=sid))
+    return data.fetchone()
