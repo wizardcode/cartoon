@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container-fluid text-center">
+        <div class="jumbotron">
+            <h1 style="color: hotpink">Peppa Pig Seasion One</h1>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Chinese Versions</h3>
+            </div>
+            <div class="panel-body">
+                {{ cartoon[1] }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <video width="100%" controls="controls" autoplay="autoplay">
+                    <source src="http://my-cartoon.oss-cn-beijing.aliyuncs.com/cartoon/peppa_pig/reason1/S104%20Polly%20Parrot%5Bwww.oiabc.com%5D.mp4" type="video/mp4"/>
+                </video>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SubTitles</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for i in subtitle %}
+                            <p>{{ i }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

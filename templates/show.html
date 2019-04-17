@@ -4,19 +4,28 @@
         <div class="jumbotron">
             <h1 style="color: hotpink">Peppa Pig Seasion One</h1>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Chinese Versions</h3>
-            </div>
-            <div class="panel-body">
-                {{ cartoon[1] }}
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-8">
-                <video width="100%" controls="controls" autoplay="autoplay">
-                    <source src="" type="video/mp4"/>
-                </video>
+                <video-js id="my-player"
+                          class="video-js vjs-big-play-centered vjs-show-big-play-button-on-pause"
+                          crossorigin="anonymous"
+                          poster="https://www.lezhi.ren/wp-content/themes/smallblog/images/custom-header/default.jpg"
+                          controls>
+                    <source src="//d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4" type="video/mp4"></source>
+                    <track id="my-video-track"
+                           kind="subtitles"
+                           src="{{ url_for('static',filename="subtitles/captions.en.vtt") }}"
+                           srclang="en"
+                           label="English"
+                           default>
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">
+                            supports HTML5 video
+                        </a>
+                    </p>
+                </video-js>
             </div>
             <div class="col-lg-4">
                 <div class="panel panel-default">
@@ -32,4 +41,24 @@
             </div>
         </div>
     </div>
+    {{ super() }}
+    <script>
+        $(document).ready(function () {
+            let player = videojs('my-player', {
+                textTrackSettings: false,
+                responsive: true,
+                fluid: true,
+                preload: true,
+                controlBar: {
+                    volumePanel: {
+                        inline: false
+                    }
+                },
+                playbackRates: [0.5, 1, 1.5, 2],
+                userActions: {
+                    doubleClick: "myDoubleClickHandler"
+                }
+            });
+        });
+    </script>
 {% endblock %}
