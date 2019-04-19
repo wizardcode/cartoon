@@ -2,19 +2,20 @@
 {% block content %}
     <div class="container-fluid text-center">
         <div class="jumbotron">
-            <h1 style="color: hotpink">Peppa Pig Seasion One</h1>
+            <h1 style="color: hotpink">Peppa Pig Season One</h1>
         </div>
         <div class="row">
             <div class="col-lg-8">
                 <video-js id="my-player"
-                          class="video-js vjs-big-play-centered vjs-show-big-play-button-on-pause"
                           crossorigin="anonymous"
-                          poster="https://www.lezhi.ren/wp-content/themes/smallblog/images/custom-header/default.jpg"
+                          class="video-js vjs-big-play-centered vjs-show-big-play-button-on-pause"
+                          poster="http://file.lezhi.ren/cartoon/peppa_pig/poster.jpg"
                           controls>
-                    <source src="//d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4" type="video/mp4"></source>
+                    <source src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s1_{{ file_id }}.mp4"></source>
                     <track id="my-video-track"
                            kind="subtitles"
-                           src="{{ url_for('static',filename="subtitles/captions.en.vtt") }}"
+                           class="vjs-text-track-settings"
+                           src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s1_{{ file_id }}.vtt"
                            srclang="en"
                            label="English"
                            default>
@@ -45,7 +46,7 @@
     <script>
         $(document).ready(function () {
             let player = videojs('my-player', {
-                textTrackSettings: false,
+                textTrackSettings: true,
                 responsive: true,
                 fluid: true,
                 preload: true,
@@ -59,6 +60,14 @@
                     doubleClick: "myDoubleClickHandler"
                 }
             });
+            player.ready(function () {
+                let settings = this.textTrackSettings;
+                settings.setValues({
+                    "backgroundOpacity": "0",
+                    "edgeStyle": "uniform",
+                });
+                settings.updateDisplay();
+            })
         });
     </script>
 {% endblock %}
