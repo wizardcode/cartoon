@@ -1,43 +1,48 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container-fluid text-center">
-        <div class="jumbotron">
-            <h1 style="color: hotpink">Peppa Pig Season One</h1>
+    <div class="row">
+        <div class="col-lg-9 col-md-8 col-sm-8" id="my_video_contain">
+            <video-js id="my-player"
+                      crossorigin="anonymous"
+                      class="video-js vjs-big-play-centered vjs-show-big-play-button-on-pause"
+                      poster="http://file.lezhi.ren/cartoon/peppa_pig/poster.jpg"
+                      controls>
+                <source src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s{{ category_id }}_{{ episode_id }}.mp4"></source>
+                <track id="my-video-track"
+                       kind="subtitles"
+                       class="vjs-text-track-settings"
+                       src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s{{ category_id }}_{{ episode_id }}.vtt"
+                       srclang="en"
+                       label="English"
+                       default>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">
+                        supports HTML5 video
+                    </a>
+                </p>
+            </video-js>
+            {% for i in range(3) %}
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 20px;">
+                    <a href="/show/{{ category_id }}/{{ episode_id+i+1 }}" class="thumbnail"
+                       style="margin-bottom: 0px;">
+                        <img src="http://file.lezhi.ren/cartoon/peppa_pig/poster.jpg" alt="...">
+                        第{{ episode_id+i+1}} 集
+                    </a>
+                </div>
+            {% endfor %}
+
         </div>
-        <div class="row">
-            <div class="col-lg-8">
-                <video-js id="my-player"
-                          crossorigin="anonymous"
-                          class="video-js vjs-big-play-centered vjs-show-big-play-button-on-pause"
-                          poster="http://file.lezhi.ren/cartoon/peppa_pig/poster.jpg"
-                          controls>
-                    <source src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s1_{{ file_id }}.mp4"></source>
-                    <track id="my-video-track"
-                           kind="subtitles"
-                           class="vjs-text-track-settings"
-                           src="http://file.lezhi.ren/cartoon/peppa_pig/season1/s1_{{ file_id }}.vtt"
-                           srclang="en"
-                           label="English"
-                           default>
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">
-                            supports HTML5 video
-                        </a>
-                    </p>
-                </video-js>
-            </div>
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">SubTitles</h3>
-                    </div>
-                    <div class="panel-body">
-                        {% for i in subtitle %}
-                            <p>{{ i }}</p>
-                        {% endfor %}
-                    </div>
+        <div class="col-lg-3 col-md-4 col-sm-4" style="overflow: auto" id="my_subtitle_contain">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">SubTitles</h3>
+                </div>
+                <div class="panel-body">
+                    {% for i in subtitles %}
+                        <p>{{ i }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -55,12 +60,14 @@
                         inline: false
                     }
                 },
-                playbackRates: [0.5, 1, 1.5, 2],
+                playbackRates: [0.5, 0.75, 1, 1.25, 1.5],
                 userActions: {
                     doubleClick: "myDoubleClickHandler"
                 }
             });
             player.ready(function () {
+                let height = $("#my_video_contain").height();
+                $("#my_subtitle_contain").css("height", height + "px");
                 let settings = this.textTrackSettings;
                 settings.setValues({
                     "backgroundOpacity": "0",

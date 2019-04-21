@@ -5,17 +5,20 @@ conn = sqlite3.connect("cartoon.db", check_same_thread=False)
 c = conn.cursor()
 
 
-def create_table():
+def insert_content(category_id, episode, content):
     c.execute(
-        "create table cartoon (sid INTEGER PRIMARY KEY,description message_text ,subtitiles message_text ) ")
+        "insert into subtitle(category_id,episode,content) values ({category_id},{episode},{content})".format(
+            category_id=category_id, episode=episode, content=content))
     conn.commit()
-    conn.close()
 
 
-def db_close():
-    conn.close()
+def get_category(id):
+    result = c.execute("select * from category where id ={id}".format(id=id))
+    return result.fetchone()
 
 
-def get_cartoon(sid):
-    data = c.execute("select * from cartoon where sid='{sid}'".format(sid=sid))
+def get_subtitle(category_id, episode):
+    data = c.execute(
+        "select * from subtitle where category_id={category_id} and episode={episode}".format(category_id=category_id,
+                                                                                              episode=episode))
     return data.fetchone()
