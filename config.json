@@ -1,0 +1,154 @@
+{
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "info"
+  },
+  "inbounds": [
+    {
+      "port": 8443,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "ab485c36-4c41-11ea-bab7-aaaa0014511a",
+            "alterId": 16
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/root/.acme.sh/blacker.top_ecc/fullchain.cer",
+              "keyFile": "/root/.acme.sh/blacker.top_ecc/blacker.top.key"
+            }
+          ]
+        },
+        "tcpSettings": {},
+        "kcpSettings": {},
+        "httpSettings": {},
+        "wsSettings": {
+          "path": "/YS1AdNec/",
+          "headers": {
+            "Host": ""
+          }
+        },
+        "quicSettings": {}
+      },
+      "domain": "blacker.top"
+    },
+    {
+      "port": 58509,
+      "protocol": "socks",
+      "settings": {
+        "auth": "password",
+        "accounts": [
+          {
+            "user": "wizardcode",
+            "pass": "wizardcode_lijian"
+          },
+          {
+            "user": "1469979804",
+            "pass": "wc1469979804"
+          },
+          {
+            "user": "7060403405",
+            "pass": "wc7060403405"
+          },
+          {
+            "user": "myuniuni",
+            "pass": "myuniuni_5795824fjf31k"
+          },
+          {
+            "user": "lhy_year_fjdksj38343",
+            "pass": "lhy_year_fjdksj38343"
+          },
+          {
+            "user": "muu_leader_3908iudfkd",
+            "pass": "muu_leader_3908iudfkd"
+          },
+          {
+            "user": "muu_pan_husband_jfeiut3445",
+            "pass": "muu_pan_husband_jfeiut3445"
+          },
+          {
+            "user": "20190624_year_kgjhgk8",
+            "pass": "20190624_year_kgjhgk8"
+          },
+          {
+            "user": "myuniuni_vip_keucht84s",
+            "pass": "myuniuni_vip_keucht84s"
+          },
+          {
+            "user": "20190815_year_gekhfhg4h",
+            "pass": "20190815_year_gekhfhg4h"
+          }
+        ],
+        "udp": false
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/root/.acme.sh/blacker.top_ecc/fullchain.cer",
+              "keyFile": "/root/.acme.sh/blacker.top_ecc/blacker.top.key"
+            }
+          ]
+        },
+        "tcpSettings": {},
+        "kcpSettings": {},
+        "wsSettings": {},
+        "httpSettings": {},
+        "quicSettings": {}
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "tag": "B"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "0.0.0.0/8",
+          "10.0.0.0/8",
+          "100.64.0.0/10",
+          "169.254.0.0/16",
+          "172.16.0.0/12",
+          "192.0.0.0/24",
+          "192.0.2.0/24",
+          "192.168.0.0/16",
+          "198.18.0.0/15",
+          "198.51.100.0/24",
+          "203.0.113.0/24",
+          "::1/128",
+          "fc00::/7",
+          "fe80::/10"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
